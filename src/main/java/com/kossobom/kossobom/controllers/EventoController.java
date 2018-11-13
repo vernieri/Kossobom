@@ -5,8 +5,12 @@
  */
 package com.kossobom.kossobom.controllers;
 
+import com.kossobom.kossobom.models.Evento;
+import com.kossobom.kossobom.repository.IEvento;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -15,8 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class EventoController {
     
-    @RequestMapping("/cadastro")
+    @Autowired
+    private IEvento er;
+    
+    @RequestMapping(value="/cadastro", method=RequestMethod.GET)
     public String form(){
         return "form";
     }
+    @RequestMapping(value="/cadastro", method=RequestMethod.POST)
+    public String form(Evento evento){
+        
+        er.save(evento);
+        return "redirect:/cadastrarEvento";
+    }    
 }
